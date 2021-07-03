@@ -483,8 +483,8 @@ const controller = {
       .addAudioPlayerPlayDirective(playBehavior, podcast.url, token, offsetInMilliseconds, null);
 
     if (await canThrowCard(handlerInput)) {
-      const cardTitle = `Playing ${podcast.title} ` + constants.playerdate();
-      const cardContent = `Playing ${podcast.title} ` + constants.playerdate()
+      const cardTitle = `Playing ${podcast.title} `;
+      const cardContent = `Playing ${podcast.title} `;
       responseBuilder.withSimpleCard(cardTitle, cardContent);
     }
 
