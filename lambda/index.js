@@ -577,7 +577,7 @@ function shuffleOrder() {
   });
 }
 
-const skillBuilder = alexa.SkillBuilders.standard();
+const skillBuilder = alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     CheckAudioInterfaceHandler,
