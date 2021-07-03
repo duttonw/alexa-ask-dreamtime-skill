@@ -3,7 +3,7 @@
 /* eslint-disable  no-restricted-syntax */
 /* eslint-disable  consistent-return */
 
-const alexa = require('ask-sdk');
+const alexa = require('ask-sdk-core');
 const constants = require('./constants');
 
 
