@@ -394,7 +394,7 @@ const ErrorHandler = {
   },
   handle(handlerInput, error) {
     console.log(`Error handled: ${error.message}`);
-    const message = 'Sorry, this is not a valid command. Please say help to hear what you can say.';
+    const message = 'Sorry, this is not a valid command. Please say help to hear what you can say or resume';
 
     return handlerInput.responseBuilder
       .speak(message)
