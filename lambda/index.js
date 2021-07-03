@@ -603,5 +603,7 @@ exports.handler = skillBuilder
   .addResponseInterceptors(SavePersistentAttributesResponseInterceptor)
   .addErrorHandlers(ErrorHandler)
   .withAutoCreateTable(true)
+  .withCustomUserAgent('dreamtime/v1.2')
   .withTableName(constants.skill.dynamoDBTableName)
   .lambda();
+  
