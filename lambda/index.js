@@ -4,6 +4,7 @@
 /* eslint-disable  consistent-return */
 
 const alexa = require('ask-sdk');
+const persistenceAdapter = require('ask-sdk-dynamodb-persistence-adapter'); // Adapter to connect with DynamoDB for persistence of user data across sessionsconst i18next = require('i18next'); // Localization client initialized below in an interceptor
 const constants = require('./constants');
 
 
@@ -577,33 +578,39 @@ function shuffleOrder() {
   });
 }
 
-const skillBuilder = alexa.SkillBuilders.standard();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    CheckAudioInterfaceHandler,
-    LaunchRequestHandler,
-    HelpHandler,
-    SystemExceptionHandler,
-    SessionEndedRequestHandler,
-    YesHandler,
-    NoHandler,
-    StartPlaybackHandler,
-    NextPlaybackHandler,
-    PreviousPlaybackHandler,
-    PausePlaybackHandler,
-    LoopOnHandler,
-    LoopOffHandler,
-    ShuffleOnHandler,
-    ShuffleOffHandler,
-    StartOverHandler,
-    ExitHandler,
-    AudioPlayerEventHandler
-  )
-  .addRequestInterceptors(LoadPersistentAttributesRequestInterceptor)
-  .addResponseInterceptors(SavePersistentAttributesResponseInterceptor)
-  .addErrorHandlers(ErrorHandler)
-  .withAutoCreateTable(true)
-  .withCustomUserAgent('dreamtime/v1.2')
-  .withTableName(constants.skill.dynamoDBTableName)
-  .lambda();
-  
+const skillBuilder = alexa.SkillBuilders.custom();
+
+  exports.handler = skillBuilder
+      .addRequestHandlers(
+          CheckAudioInterfaceHandler,
+          LaunchRequestHandler,
+          HelpHandler,
+          SystemExceptionHandler,
+          SessionEndedRequestHandler,
+          YesHandler,
+          NoHandler,
+          StartPlaybackHandler,
+          NextPlaybackHandler,
+          PreviousPlaybackHandler,
+          PausePlaybackHandler,
+          LoopOnHandler,
+          LoopOffHandler,
+          ShuffleOnHandler,
+          ShuffleOffHandler,
+          StartOverHandler,
+          ExitHandler,
+          AudioPlayerEventHandler
+      )
+      .addRequestInterceptors(LoadPersistentAttributesRequestInterceptor)
+      .addResponseInterceptors(SavePersistentAttributesResponseInterceptor)
+      .addErrorHandlers(ErrorHandler)
+
+      .withPersistenceAdapter(
+          new persistenceAdapter.DynamoDbPersistenceAdapter({
+            tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME,
+            createTable: false,
+            dynamoDBClient: new AWS.DynamoDB({apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION})
+          })
+      )
+      .withCustomUserAgent('dreamtime/v1.2')
+      .lambda();
