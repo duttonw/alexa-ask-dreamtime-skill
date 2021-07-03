@@ -3,7 +3,8 @@
 /* eslint-disable  no-restricted-syntax */
 /* eslint-disable  consistent-return */
 
-const alexa = require('ask-sdk');
+const Alexa = require('ask-sdk');
+const AWS = require('aws-sdk'); // Library for creating a DynamoDB client
 const persistenceAdapter = require('ask-sdk-dynamodb-persistence-adapter'); // Adapter to connect with DynamoDB for persistence of user data across sessionsconst i18next = require('i18next'); // Localization client initialized below in an interceptor
 const constants = require('./constants');
 
@@ -578,7 +579,7 @@ function shuffleOrder() {
   });
 }
 
-const skillBuilder = alexa.SkillBuilders.custom();
+const skillBuilder = Alexa.SkillBuilders.custom();
 
   exports.handler = skillBuilder
       .addRequestHandlers(
