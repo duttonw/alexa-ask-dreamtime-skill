@@ -18,6 +18,7 @@ function playerdate() {
     return [year, month, day].join('-');
     
 }
+exports.playerdate = playerdate();
 
 exports.audioData = [
   {
