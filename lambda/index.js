@@ -3,7 +3,7 @@
 /* eslint-disable  no-restricted-syntax */
 /* eslint-disable  consistent-return */
 
-const alexa = require('ask-sdk-core');
+const alexa = require('ask-sdk');
 const constants = require('./constants');
 
 
@@ -577,7 +577,7 @@ function shuffleOrder() {
   });
 }
 
-const skillBuilder = alexa.SkillBuilders.custom();
+const skillBuilder = alexa.SkillBuilders.standard();
 exports.handler = skillBuilder
   .addRequestHandlers(
     CheckAudioInterfaceHandler,
