@@ -1,3 +1,10 @@
+/* eslint-disable  func-names */
+/* eslint-disable  no-console */
+/* eslint-disable  no-restricted-syntax */
+/* eslint-disable  consistent-return */
+
+const alexa = require('ask-sdk');
+const constants = require('./constants');
 
 
 /* INTENT HANDLERS */
