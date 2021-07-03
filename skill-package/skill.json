@@ -1,0 +1,79 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-AU": {
+          "summary": "Story time, then lullabies followed by Gentle melodies to help your child stay fast asleep.",
+          "examplePhrases": [
+            "Alexa open dream time",
+            "Alexa play dream time",
+            "Alexa, ask dream time to play"
+          ],
+          "keywords": [
+            "music",
+            "streaming",
+            "abc kids dream time",
+            "abc kids listen dream time",
+            "dream time",
+            "sleep"
+          ],
+          "name": "Dream Time",
+          "description": "This plays yesterdays live abc kids listen stream any time of the day.\nIt will start with;\nBedtime Stories (0.5 hours): Soothing stories for winding down and getting ready for bed.\nThen Lullabies (1.5 hours): Lull your child to sleep with relaxing\nAnd end with Dream Time (3 hours): Classic lullabies., Gentle melodies help your child stay fast asleep.\n\nTo start, just say \"Alexa, launch dream time\" or \"Alexa, play dream time\" to start the playlist.\n\nYou can skip to the next section by saying \"Alexa, next\".\n\nAt anytime, you can stop the radio by saying \"Alexa, stop\".\n\n\nThis is an un-official skill to access the worldwide radio that https://radio.abc.net.au provides, more information can be found at https://radio.abc.net.au/help/streams (ABC KIDS listen)\n\nMaterial can be found at \nhttps://www.abc.net.au/kidslisten/bedtime-stories/\nhttps://www.abc.net.au/kidslisten/lullabies/\nhttps://www.abc.net.au/kidslisten/dream-time/",
+          "smallIconUri": "file://assets/images/en-AU_smallIconUri.png",
+          "updatesDescription": "First release 2021/07",
+          "largeIconUri": "file://assets/images/en-AU_largeIconUri.png"
+        }
+      },
+      "automaticDistribution": {
+        "isActive": false
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Music content from https://abcradiomodhls-vh.akamaihd.net/i/kidslisten/audio/* . Upstream internet radio station will work out end user ip address to their geo country and will alter radio stream content to meet international licence restrictions.\n\nThis is a simple skill to play the evening story, lullabies and sleep track that is also on the abc kids listen radio at any time of day instead of restricted to AEST evening time. This could be done as a podcast via the generic interface but due to the generic names and structure for kids, this is not really suitable for a sleep session.",
+      "category": "CHILDRENS_MUSIC",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-west-2:402658295289:function:79fcff0e-9297-44ee-8b97-f5bf46c9e3aa:Release_0"
+        },
+        "interfaces": [
+          {
+            "type": "AUDIO_PLAYER"
+          }
+        ],
+        "regions": {
+          "EU": {
+            "endpoint": {
+              "uri": "arn:aws:lambda:eu-west-1:402658295289:function:79fcff0e-9297-44ee-8b97-f5bf46c9e3aa:Release_0"
+            }
+          },
+          "NA": {
+            "endpoint": {
+              "uri": "arn:aws:lambda:us-east-1:402658295289:function:79fcff0e-9297-44ee-8b97-f5bf46c9e3aa:Release_0"
+            }
+          },
+          "FE": {
+            "endpoint": {
+              "uri": "arn:aws:lambda:us-west-2:402658295289:function:79fcff0e-9297-44ee-8b97-f5bf46c9e3aa:Release_0"
+            }
+          }
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "en-AU": {
+          "termsOfUseUrl": "https://about.abc.net.au/terms-of-use/",
+          "privacyPolicyUrl": "https://help.abc.net.au/hc/en-us/articles/360001154976-ABC-Privacy-Policy"
+        }
+      },
+      "containsAds": false,
+      "isExportCompliant": true,
+      "isChildDirected": true,
+      "usesPersonalInfo": false
+    }
+  }
+}
