@@ -21,8 +21,8 @@ const LaunchRequestHandler = {
     let reprompt;
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      message = 'Welcome to the AWS Podcast. you can ask to play the audio to begin the podcast.';
-      reprompt = 'You can say, play the audio, to begin.';
+      message = 'Welcome ABC Kids Dream Time. You can say, play to begin.';
+      reprompt = 'You can say, play, to begin.';
     } else {
       playbackInfo.inPlaybackSession = false;
       message = `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
@@ -337,11 +337,11 @@ const HelpHandler = {
     let message;
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      message = 'Welcome to the AWS Podcast. You can say, play the audio to begin the podcast.';
+      message = 'Welcome ABC Kids Dream Time. You can say, play to begin';
     } else if (!playbackInfo.inPlaybackSession) {
       message = `You were listening to ${constants.audioData[playbackInfo.index].title}. Would you like to resume?`;
     } else {
-      message = 'You are listening to the AWS Podcast. You can say, Next or Previous to navigate through the playlist. At any time, you can say Pause to pause the audio and Resume to resume.';
+      message = 'You are listening ABC Kids Dream Time. You can say, Next or Previous to navigate through the playlist. At any time, you can say Pause to pause the audio and Resume to resume.';
     }
 
     return handlerInput.responseBuilder
