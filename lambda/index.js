@@ -27,7 +27,7 @@ const LaunchRequestHandler = {
     } else {
       playbackInfo.inPlaybackSession = false;
       message = `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
-      reprompt = 'You can say yes to resume or no to play from the begining, or play Lullabies or play Dreamtime to start at tere.';
+      reprompt = 'You can say yes to resume or no to play from the begining.';
        return handlerInput.responseBuilder
       .speak(message)
       .reprompt(reprompt)
