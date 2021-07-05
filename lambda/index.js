@@ -21,18 +21,20 @@ const LaunchRequestHandler = {
     let reprompt;
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      message = 'Welcome ABC Kids Dream Time. You can say, begin, to start or play Lullabies or play Dreamtime to skip start later in playlist';
-      reprompt = 'You can say, begin, to start.';
+      message = 'Welcome ABC Kids Dream Time. ';
+      return controller.playSong(handlerInput, 0);
+      
     } else {
       playbackInfo.inPlaybackSession = false;
       message = `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
       reprompt = 'You can say yes to resume or no to play from the begining, or play Lullabies or play Dreamtime to start at tere.';
-    }
-
-    return handlerInput.responseBuilder
+       return handlerInput.responseBuilder
       .speak(message)
       .reprompt(reprompt)
       .getResponse();
+    }
+
+   
   },
 };
 
