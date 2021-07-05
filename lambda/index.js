@@ -21,12 +21,12 @@ const LaunchRequestHandler = {
     let reprompt;
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      message = 'Welcome ABC Kids Dream Time. You can say, play to begin.';
-      reprompt = 'You can say, play, to begin.';
+      message = 'Welcome ABC Kids Dream Time. You can say, begin, to start or play Lullabies or play Dreamtime to skip start later in playlist';
+      reprompt = 'You can say, begin, to start.';
     } else {
       playbackInfo.inPlaybackSession = false;
       message = `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
-      reprompt = 'You can say yes to resume or no to play from the top.';
+      reprompt = 'You can say yes to resume or no to play from the begining, or play Lullabies or play Dreamtime to start at tere.';
     }
 
     return handlerInput.responseBuilder
@@ -120,6 +120,36 @@ const CheckAudioInterfaceHandler = {
       .speak('Sorry, this skill is not supported on this device')
       .withShouldEndSession(true)
       .getResponse();
+  },
+};
+
+
+const GoToSongPlaybackHandler = {
+  async canHandle(handlerInput) {
+    const playbackInfo = await getPlaybackInfo(handlerInput);
+    const request = handlerInput.requestEnvelope.request;
+
+
+    if (request.type === 'IntentRequest') {
+      return request.intent.name === 'PlayLullabies';
+    }
+  },
+  handle(handlerInput) {
+    return controller.playSong(handlerInput, 1);
+  },
+};
+const GoToSongPlaybackHandler2 = {
+  async canHandle(handlerInput) {
+    const playbackInfo = await getPlaybackInfo(handlerInput);
+    const request = handlerInput.requestEnvelope.request;
+
+
+    if (request.type === 'IntentRequest') {
+      return request.intent.name === 'PlauDreamTime';
+    }
+  },
+  handle(handlerInput) {
+    return controller.playSong(handlerInput, 2);
   },
 };
 
@@ -540,6 +570,19 @@ const controller = {
 
     return this.play(handlerInput);
   },
+  async playSong(handlerInput, songId) {
+       const {
+      playbackInfo,
+      playbackSetting,
+    } = await handlerInput.attributesManager.getPersistentAttributes();
+
+
+    playbackInfo.index = songId;
+    playbackInfo.offsetInMilliseconds = 0;
+    playbackInfo.playbackIndexChanged = true;
+
+    return this.play(handlerInput);
+  }
 };
 
 function getToken(handlerInput) {
@@ -598,6 +641,8 @@ const skillBuilder = Alexa.SkillBuilders.custom();
           ShuffleOnHandler,
           ShuffleOffHandler,
           StartOverHandler,
+          GoToSongPlaybackHandler,
+          GoToSongPlaybackHandler2,
           ExitHandler,
           AudioPlayerEventHandler
       )
