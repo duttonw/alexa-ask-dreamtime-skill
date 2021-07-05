@@ -131,13 +131,15 @@ const GoToSongPlaybackHandler = {
 
 
     if (request.type === 'IntentRequest') {
-      return request.intent.name === 'PlayLullabies';
+      return request.intent.name === 'PlayStoryTime';
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 1);
+    return controller.playSong(handlerInput, 0);
   },
 };
+
+
 const GoToSongPlaybackHandler2 = {
   async canHandle(handlerInput) {
     const playbackInfo = await getPlaybackInfo(handlerInput);
@@ -145,7 +147,23 @@ const GoToSongPlaybackHandler2 = {
 
 
     if (request.type === 'IntentRequest') {
-      return request.intent.name === 'PlauDreamTime';
+      return request.intent.name === 'PlayLullabies';
+    }
+  },
+  handle(handlerInput) {
+    return controller.playSong(handlerInput, 1);
+  },
+};
+
+
+const GoToSongPlaybackHandler3 = {
+  async canHandle(handlerInput) {
+    const playbackInfo = await getPlaybackInfo(handlerInput);
+    const request = handlerInput.requestEnvelope.request;
+
+
+    if (request.type === 'IntentRequest') {
+      return request.intent.name === 'PlayDreamTime';
     }
   },
   handle(handlerInput) {
@@ -643,6 +661,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
           StartOverHandler,
           GoToSongPlaybackHandler,
           GoToSongPlaybackHandler2,
+          GoToSongPlaybackHandler3,
           ExitHandler,
           AudioPlayerEventHandler
       )
