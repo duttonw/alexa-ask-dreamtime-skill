@@ -535,8 +535,8 @@ const controller = {
     if (await canThrowCard(handlerInput)) {
       const cardTitle = `Playing ${podcast.title} `;
       const cardContent = `Playing ${podcast.title} `;
-      const pictureSmallUrl = Util.getS3PreSignedUrl(${podcast.small});
-      const pictureLargeUrl = Util.getS3PreSignedUrl(${podcast.large});
+      const pictureSmallUrl = Util.getS3PreSignedUrl(podcast.small);
+      const pictureLargeUrl = Util.getS3PreSignedUrl(podcast.large);
       responseBuilder.withStandardCard(cardTitle, cardContent, pictureSmallUrl, pictureLargeUrl);
     }
 
