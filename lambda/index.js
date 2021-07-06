@@ -8,6 +8,7 @@ const AWS = require('aws-sdk'); // Library for creating a DynamoDB client
 const persistenceAdapter = require('ask-sdk-dynamodb-persistence-adapter'); // Adapter to connect with DynamoDB for persistence of user data across sessionsconst i18next = require('i18next'); // Localization client initialized below in an interceptor
 const constants = require('./constants');
 const Util = require('./util.js');
+const {ImageHelper} = require("ask-sdk-core");
 
 /* INTENT HANDLERS */
 
@@ -527,15 +528,24 @@ const controller = {
     const token = playOrder[index];
     playbackInfo.nextStreamEnqueued = false;
 
+    const pictureSmallUrl = Util.getS3PreSignedUrl(podcast.small);
+
+    const audioItemMetadata = {
+      title : podcast.title,
+      subtitle : 'From ABC Kids Listen',
+      art : new ImageHelper().withDescription(podcast.title).addImageInstance(pictureSmallUrl).getImage(),
+      backgroundImage : new ImageHelper().withDescription(podcast.title).addImageInstance(pictureSmallUrl).getImage(),
+    };
+
     responseBuilder
       .speak(`This is ${podcast.title}`)
       .withShouldEndSession(true)
-      .addAudioPlayerPlayDirective(playBehavior, podcast.url, token, offsetInMilliseconds, null);
+      .addAudioPlayerPlayDirective(playBehavior, podcast.url, token, offsetInMilliseconds, null, audioItemMetadata);
 
     if (await canThrowCard(handlerInput)) {
       const cardTitle = `Playing ${podcast.title} `;
       const cardContent = `Playing ${podcast.title} `;
-      const pictureSmallUrl = Util.getS3PreSignedUrl(podcast.small);
+
       const pictureLargeUrl = Util.getS3PreSignedUrl(podcast.large);
       responseBuilder.withStandardCard(cardTitle, cardContent, pictureSmallUrl, pictureLargeUrl);
     }
