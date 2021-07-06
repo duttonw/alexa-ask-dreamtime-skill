@@ -7,7 +7,7 @@ const Alexa = require('ask-sdk');
 const AWS = require('aws-sdk'); // Library for creating a DynamoDB client
 const persistenceAdapter = require('ask-sdk-dynamodb-persistence-adapter'); // Adapter to connect with DynamoDB for persistence of user data across sessionsconst i18next = require('i18next'); // Localization client initialized below in an interceptor
 const constants = require('./constants');
-
+const Util = require('./util.js');
 
 /* INTENT HANDLERS */
 
@@ -535,7 +535,9 @@ const controller = {
     if (await canThrowCard(handlerInput)) {
       const cardTitle = `Playing ${podcast.title} `;
       const cardContent = `Playing ${podcast.title} `;
-      responseBuilder.withSimpleCard(cardTitle, cardContent);
+      const pictureSmallUrl = Util.getS3PreSignedUrl(${podcast.small});
+      const pictureLargeUrl = Util.getS3PreSignedUrl(${podcast.large});
+      responseBuilder.withStandardCard(cardTitle, cardContent, pictureSmallUrl, pictureLargeUrl);
     }
 
     return responseBuilder.getResponse();
@@ -565,6 +567,7 @@ const controller = {
 
     return this.play(handlerInput);
   },
+
   async playPrevious(handlerInput) {
     const {
       playbackInfo,

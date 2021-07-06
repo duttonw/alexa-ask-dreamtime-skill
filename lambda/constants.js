@@ -23,13 +23,19 @@ exports.audioData = [
   {
     title: 'Bedtime Stories',
     url: 'https://abcradiomodhls-vh.akamaihd.net/i/kidslisten/audio/kbe-' + playerdate() + '.m4a/master.m3u8',
+    small: "Media/bedtimestories-13099436-16x9-small.png",
+    large: "Media/bedtimestories-13099436-16x9-large.png"
   },
   {
     title: 'Lullabies',
     url: 'https://abcradiomodhls-vh.akamaihd.net/i/kidslisten/audio/klu-' + playerdate() + '.m4a/master.m3u8',
+    small: "Media/lullabies-9324100-16x9-large.png",
+    large: "Media/lullabies-9324100-16x9-small.png"
   },
   {
     title: 'Dream Time',
     url: 'https://abcradiomodhls-vh.akamaihd.net/i/kidslisten/audio/kdt-' + playerdate() + '.m4a/master.m3u8',
+    small: "Media/dreamtime-9318230-16x9-small.png",
+    large: "Media/dreamtime-9318230-16x9-large.png"
   },
 ];
