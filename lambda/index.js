@@ -18,20 +18,19 @@ const LaunchRequestHandler = {
   },
   async handle(handlerInput) {
     const playbackInfo = await getPlaybackInfo(handlerInput);
-    let message;
-    let reprompt;
+
+    let intro = 'Welcome ABC Kids Listen Dream Time. ';
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      message = 'Welcome ABC Kids Dream Time. ';
-      return controller.playSong(handlerInput, 0);
+      return controller.playSong(handlerInput, 0, false, intro);
       
     } else {
       playbackInfo.inPlaybackSession = false;
-      message = `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
-      reprompt = 'You can say yes to resume or no to play from the begining.';
+      let message = intro + `You were listening to ${constants.audioData[playbackInfo.playOrder[playbackInfo.index]].title}. Would you like to resume?`;
+      let rePrompt = 'You can say yes to resume or no to play from the beginning.';
        return handlerInput.responseBuilder
       .speak(message)
-      .reprompt(reprompt)
+      .reprompt(rePrompt)
       .getResponse();
     }
 
@@ -138,7 +137,7 @@ const GoToSongPlaybackHandler = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 0);
+    return controller.playSong(handlerInput, 0, false, '');
   },
 };
 
@@ -154,7 +153,7 @@ const GoToSongPlaybackHandler2 = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 1);
+    return controller.playSong(handlerInput, 1, false, '');
   },
 };
 
@@ -170,7 +169,7 @@ const GoToSongPlaybackHandler3 = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 2);
+    return controller.playSong(handlerInput, 2, false, '');
   },
 };
 
@@ -510,7 +509,16 @@ async function canThrowCard(handlerInput) {
 }
 
 const controller = {
-  async play(handlerInput) {
+  async playStart(handlerInput, titlePrefix) {
+    return controller.play(handlerInput, false, titlePrefix);
+  },
+  async play(handlerInput, endSession , titlePrefix) {
+    if (endSession === null) {
+      endSession = true;
+    }
+    if (titlePrefix === null) {
+      titlePrefix = '';
+    }
     const {
       attributesManager,
       responseBuilder
@@ -538,8 +546,8 @@ const controller = {
     };
 
     responseBuilder
-      .speak(`This is ${podcast.title}`)
-      .withShouldEndSession(true)
+      .speak(titlePrefix + `This is ${podcast.title}`)
+      .withShouldEndSession(endSession)
       .addAudioPlayerPlayDirective(playBehavior, podcast.url, token, offsetInMilliseconds, null, audioItemMetadata);
 
     if (await canThrowCard(handlerInput)) {
@@ -603,7 +611,7 @@ const controller = {
 
     return this.play(handlerInput);
   },
-  async playSong(handlerInput, songId) {
+  async playSong(handlerInput, songId, endSession, titlePrefix) {
        const {
       playbackInfo,
       playbackSetting,
@@ -614,7 +622,7 @@ const controller = {
     playbackInfo.offsetInMilliseconds = 0;
     playbackInfo.playbackIndexChanged = true;
 
-    return this.play(handlerInput);
+    return this.playStart(handlerInput, endSession, titlePrefix);
   }
 };
 
