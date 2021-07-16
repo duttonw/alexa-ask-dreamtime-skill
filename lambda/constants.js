@@ -7,7 +7,7 @@ exports.skill = {
 
 /* This outputs 2021-07-02 if today is 2021-07-03, this is the format they use for their audio file*/
 function playerdate() {
-    var d = new Date((new Date()).valueOf() - 1000*60*60*26); //ensure we are the day prior
+    var d = new Date((new Date()).valueOf() - 1000*60*60*24); //ensure we are the day prior
     var month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
