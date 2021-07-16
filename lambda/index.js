@@ -22,7 +22,7 @@ const LaunchRequestHandler = {
     let intro = 'Welcome ABC Kids Listen Dream Time. ';
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      return controller.playSong(handlerInput, 0, false, intro);
+      await controller.playSong(handlerInput, 0, false, intro);
       
     } else {
       playbackInfo.inPlaybackSession = false;
@@ -509,8 +509,8 @@ async function canThrowCard(handlerInput) {
 }
 
 const controller = {
-  async playStart(handlerInput, titlePrefix) {
-    return controller.play(handlerInput, false, titlePrefix);
+  async playStart(handlerInput, endSession, titlePrefix) {
+    return controller.play(handlerInput, endSession, titlePrefix);
   },
   async play(handlerInput, endSession = true , titlePrefix = '') {
     const {
@@ -616,7 +616,7 @@ const controller = {
     playbackInfo.offsetInMilliseconds = 0;
     playbackInfo.playbackIndexChanged = true;
 
-    return this.playStart(handlerInput, endSession, titlePrefix);
+    await controller.playStart(handlerInput, endSession, titlePrefix);
   }
 };
 
