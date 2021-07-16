@@ -512,13 +512,7 @@ const controller = {
   async playStart(handlerInput, titlePrefix) {
     return controller.play(handlerInput, false, titlePrefix);
   },
-  async play(handlerInput, endSession , titlePrefix) {
-    if (endSession === undefined) {
-      endSession = true;
-    }
-    if (titlePrefix === undefined) {
-      titlePrefix = '';
-    }
+  async play(handlerInput, endSession = true , titlePrefix = '') {
     const {
       attributesManager,
       responseBuilder
