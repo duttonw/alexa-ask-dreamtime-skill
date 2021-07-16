@@ -513,10 +513,10 @@ const controller = {
     return controller.play(handlerInput, false, titlePrefix);
   },
   async play(handlerInput, endSession , titlePrefix) {
-    if (endSession === null) {
+    if (endSession === undefined) {
       endSession = true;
     }
-    if (titlePrefix === null) {
+    if (titlePrefix === undefined) {
       titlePrefix = '';
     }
     const {
