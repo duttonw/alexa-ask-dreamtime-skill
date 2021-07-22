@@ -22,7 +22,7 @@ const LaunchRequestHandler = {
     let intro = 'Welcome ABC Kids Listen Dream Time. ';
 
     if (!playbackInfo.hasPreviousPlaybackSession) {
-      return controller.playSong(handlerInput, 0, false, intro);
+      return controller.playSong(handlerInput, 0, true, intro);
       
     } else {
       playbackInfo.inPlaybackSession = false;
@@ -137,7 +137,7 @@ const GoToSongPlaybackHandler = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 0, false, '');
+    return controller.playSong(handlerInput, 0, true, '');
   },
 };
 
@@ -153,7 +153,7 @@ const GoToSongPlaybackHandler2 = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 1, false, '');
+    return controller.playSong(handlerInput, 1, true, '');
   },
 };
 
@@ -169,7 +169,7 @@ const GoToSongPlaybackHandler3 = {
     }
   },
   handle(handlerInput) {
-    return controller.playSong(handlerInput, 2, false, '');
+    return controller.playSong(handlerInput, 2, true, '');
   },
 };
 
